@@ -29,6 +29,8 @@ Usage
 List of available methods
 -------------------------
 
+``def list_all_archives(self)``: Get a list of user's archives.
+
 ``def list_platforms(self)``: Get a list of links to the platforms.
 
 ``def get_platform(self, id)``: Get information on a platform.
