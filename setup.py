@@ -18,39 +18,13 @@ import codecs
 import os
 import setuptools
 
-from c14 import version
-
-
-def _get_requirements():
-    requirements_path = '%s/%s' % (os.path.dirname(os.path.abspath(__file__)),
-                                   'requirements.txt')
-    with open(requirements_path, 'r') as f:
-        requirements = f.read()
-        # remove the dependencies which comes from url source because
-        # it's not supported by install_requires
-        return [dep for dep in requirements.split('\n')
-                if not dep.startswith('-e')]
-
-
-def _get_readme():
-    readme_path = '%s/%s' % (os.path.dirname(os.path.abspath(__file__)),
-                             'README.rst')
-
-    with codecs.open(readme_path, 'r', encoding='utf8') as f:
-        return f.read()
-
 
 setuptools.setup(
     name='c14',
-    version=version.__version__,
-    packages=setuptools.find_packages(),
+    setup_requires='setupmeta',
     author='Yanis Guenane',
     author_email='yanis@guenane.org',
-    description='C14 Python Wrapper',
-    long_description=_get_readme(),
-    install_requires=_get_requirements(),
     url='https://github.com/Spredzy/python-c14',
-    license='Apache v2.0',
     include_package_data=True,
     classifiers=[
         'Environment :: Console',
@@ -58,6 +32,6 @@ setuptools.setup(
         'Intended Audience :: Information Technology',
         'License :: OSI Approved :: Apache Software License',
         'Operating System :: POSIX :: Linux',
-        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.0',
     ],
 )
