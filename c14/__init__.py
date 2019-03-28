@@ -37,12 +37,24 @@ class C14(object):
                                session=api_session, append_slash=False)
 
     def handle_error(self, exception):
-        content = json.loads(exception.response._content)
-        return {'error': content['error'],
-                'code': content['code'],
-                'status_code': exception.response.status_code,
-                'url': exception.response.url}
+        content = json.loads((exception.response._content).decode('utf-8'))
+        raise Exception (json.dumps({"error": str(content['error']),
+                "code": int(content['code']),
+                "status_code": int(exception.response.status_code),
+                "url": str(exception.response.url)}))
 
+    def list_all_archives(self):
+        """Get a list of user's archives"""
+        
+        try:
+            res = self.api.storage.c14.archive.get()
+        except slumber.exceptions.HttpClientError as e:
+            res = self.handle_error(e)
+        except slumber.exceptions.HttpServerError as e:
+            res = self.handle_error(e)
+
+        return res
+        
     def list_platforms(self):
         """Get a list of links to the platforms."""
 
@@ -163,7 +175,7 @@ class C14(object):
         return res
 
     def create_archive(self, safe_id, name, description, protocols, platforms,
-                       parity=None, ssh_keys=None, days=None):
+                       parity=None, ssh_keys=None, days=None, crypto="none", large_bucket=None):
         """Create an archive.
 
         :param safe_id: Id of the safe.
@@ -181,12 +193,14 @@ class C14(object):
             data = {'name': name,
                     'description': description,
                     'parity': parity,
+                    'crypto': crypto,
                     'protocols': protocols,
                     'ssh_keys': ssh_keys,
                     'days': days,
+                    'large_bucket' : large_bucket,
                     'platforms': platforms}
 
-            data = dict((k, v) for k, v in data.iteritems() if v is not None)
+            data = dict((k, v) for k, v in data.items() if v is not None)
             res = self.api.storage.c14.safe(safe_id).archive.post(data)
         except slumber.exceptions.HttpClientError as e:
             res = self.handle_error(e)
