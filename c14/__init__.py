@@ -137,7 +137,7 @@ class C14(object):
         data = {'name': name,
                 'description': description}
 
-        data = dict((k, v) for k, v in data.iteritems() if v is not None)
+        data = dict((k, v) for k, v in data.items() if v is not None)
         try:
             res = (self.api.storage.c14.safe(uuid).patch(data))
         except slumber.exceptions.HttpClientError as e:
@@ -237,7 +237,7 @@ class C14(object):
         data = {'name': name,
                 'description': description}
 
-        data = dict((k, v) for k, v in data.iteritems() if v is not None)
+        data = dict((k, v) for k, v in data.items() if v is not None)
         try:
             res = (self.api.storage.c14.safe(safe_id).archive(uuid)
                    .patch(data))
@@ -470,7 +470,7 @@ class C14(object):
                     'key': key,
                     'ssh_keys': ssh_keys}
 
-            data = dict((k, v) for k, v in data.iteritems() if v is not None)
+            data = dict((k, v) for k, v in data.items() if v is not None)
             res = (self.api.storage.c14.safe(safe_id).archive(uuid).unarchive
                    .post(data))
         except slumber.exceptions.HttpClientError as e:
