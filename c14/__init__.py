@@ -100,7 +100,7 @@ class C14(object):
         :param **kwargs: Set optional parameters
         """
 
-        data = self.LIST_PARAM
+        data = dict(self.LIST_PARAM)
         data.update((k, kwargs[k]) for k in data.keys() & kwargs.keys())
         data = dict((k, v) for k, v in data.items() if v is not None)
         try:
@@ -182,7 +182,7 @@ class C14(object):
         :param **kwargs: Set optional parameters
         """
 
-        data = self.LIST_PARAM
+        data = dict(self.LIST_PARAM)
         data.update((k, kwargs[k]) for k in data.keys() & kwargs.keys())
         data = dict((k, v) for k, v in data.items() if v is not None)
         try:
@@ -323,7 +323,7 @@ class C14(object):
         :param **kwargs: Set optional parameters
         """
 
-        data = self.LIST_JOB
+        data = dict(self.LIST_JOB)
         data.update((k, kwargs[k]) for k in data.keys() & kwargs.keys())
         data = dict((k, v) for k, v in data.items() if v is not None)
         try:
@@ -404,7 +404,7 @@ class C14(object):
         :param uuid: Id of the archive.
         """
 
-        data = self.LIST_PARAM
+        data = dict(self.LIST_PARAM)
         data.update((k, kwargs[k]) for k in data.keys() & kwargs.keys())
         data = dict((k, v) for k, v in data.items() if v is not None)
         try:
